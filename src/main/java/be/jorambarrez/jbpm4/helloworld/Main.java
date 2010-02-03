@@ -20,8 +20,12 @@ public class Main {
 		// Deploy helloWorld process definition and start a process instance
 		repositoryService.createDeployment().addResourceFromClasspath("hello_world.jpdl.xml").deploy();
 		
+		Issue issue = new Issue();
+		
+		processEngine.execute(new PersistCommand(issue));
+		
 		Map variables = new HashMap();
-		variables.put("issue", new Issue());
+		variables.put("issue", issue);
 		
 		executionService.startProcessInstanceByKey("helloWorld", variables);
 		
